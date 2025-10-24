@@ -24,9 +24,16 @@ local function UpdateNSOS()
 end
 
 local Update = "NSOS-Version.txt"
-local UpdateStatus = fs.open(Update, "r")
-local Check = UpdateStatus.readAll()
-fs.close(Update)
+local Check = ""
+if fs.exists(Update) then
+    local UpdateStatus = fs.open(Update, "r")
+    if UpdateStatus then
+        Check = UpdateStatus.readAll()
+        UpdateStatus.close()
+        -- trim leading/trailing whitespace/newlines
+        Check = string.gsub(Check, "^%s*(.-)%s*$", "%1")
+    end
+end
 
 if Check == "UPDATE" then
     print("Update Code Detected, Re-Installing NSOS (if data is affected there will be a warning when starting NSOS Again with a option to re-format so minimal data is lost)")
