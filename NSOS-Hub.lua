@@ -3,7 +3,7 @@ shell.run("clear")
 -- Setup
 
 print("------------------------------")
-print("Welcome to NSOS-Hub V-Beta-1.0")
+print("Welcome to NSOS-Hub V-Beta-1.5")
 term.setTextColor(colors.yellow)
 print("WARNING: This is an alpha version, expect bugs and incomplete features.")
 term.setTextColor(colors.white)
