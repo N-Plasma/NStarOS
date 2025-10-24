@@ -14,7 +14,6 @@ local function UpdateNSOS()
                 fs.delete("NSOS-Printer.lua")
                 shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-Printer.lua")
         end
-    
 
     fs.delete("NSOS-Hub.lua")
     fs.delete("NSOS-Version.txt")
@@ -24,9 +23,11 @@ local function UpdateNSOS()
     shell.run("NSOS-Hub.lua")
 end
 
-local UpdateStatus = fs.open("NSOS-Version.txt", "r")
-local Check = UpdateStatus.readAll()
-fs.close(UpdateStatus)
+local success, UpdateStatus = pcall(function() return fs.open("NSOS-Version.txt", "r") end)
+if success and UpdateStatus then
+    Check = UpdateStatus.readAll()
+    UpdateStatus.close()
+end
 
 if Check == "UPDATE" then
     print("Update Code Detected, Re-Installing NSOS (if data is affected there will be a warning when starting NSOS Again with a option to re-format so minimal data is lost)")
