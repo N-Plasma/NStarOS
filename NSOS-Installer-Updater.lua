@@ -23,21 +23,15 @@ local function UpdateNSOS()
     shell.run("NSOS-Hub.lua")
 end
 
-local Update = "NSOS-Version.txt"
-local Check = ""
-if fs.exists(Update) then
-    local UpdateStatus = fs.open(Update, "r")
-    if UpdateStatus then
+if fs.exists("NSOS-Version.txt") then
+    local Check = ""
+    local UpdateStatus = fs.open("NSOS-Version.txt", "r")
         Check = UpdateStatus.readAll()
         UpdateStatus.close()
-        -- trim leading/trailing whitespace/newlines
-        Check = string.gsub(Check, "^%s*(.-)%s*$", "%1")
+    if Check == "UPDATE" then
+        print("Update Code Detected, Re-Installing NSOS (if data is affected there will be a warning when starting NSOS Again with a option to re-format so minimal data is lost)")
+        UpdateNSOS()
     end
-end
-
-if Check == "UPDATE" then
-    print("Update Code Detected, Re-Installing NSOS (if data is affected there will be a warning when starting NSOS Again with a option to re-format so minimal data is lost)")
-    UpdateNSOS()
 end
 -- NSOS Installer
 
