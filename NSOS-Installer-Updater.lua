@@ -23,11 +23,10 @@ local function UpdateNSOS()
     shell.run("NSOS-Hub.lua")
 end
 
-local success, UpdateStatus = pcall(function() return fs.open("NSOS-Version.txt", "r") end)
-if success and UpdateStatus then
-    Check = UpdateStatus.readAll()
-    UpdateStatus.close()
-end
+local Update = "NSOS-Version.txt"
+local UpdateStatus = fs.open(Update, "r")
+local Check = UpdateStatus.readAll()
+fs.close(Update)
 
 if Check == "UPDATE" then
     print("Update Code Detected, Re-Installing NSOS (if data is affected there will be a warning when starting NSOS Again with a option to re-format so minimal data is lost)")
