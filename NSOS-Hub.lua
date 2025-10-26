@@ -1,27 +1,3 @@
-shell.run("clear")
-
--- Setup
-
-print("------------------------------")
-print("Welcome to NSOS-Hub V-Beta-1.5")
-term.setTextColor(colors.yellow)
-print("WARNING: This is an alpha version, expect bugs and incomplete features.")
-term.setTextColor(colors.white)
-print("------------------------------")
-
-local DataSave = "NSOS-DataSave.txt"
-
-sleep(.5)
-
-if not fs.exists(DataSave) then
-    term.setTextColor(colors.red)
-    print("First time setup / DataSave corruption detected. Setting up DataSave...")
-    term.setTextColor(colors.white)
-    fs.open(DataSave, "w").close()
-end
-
--- Update Checker
-
 local function checkForUpdates()
     local success, response = pcall(function()
         return http.get("https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-Version.txt")
@@ -49,3 +25,28 @@ end)
         end
     end
 end
+
+checkForUpdates()
+shell.run("clear")
+
+-- Setup
+
+print("--------------------------")
+print("Welcome to NSOS-Hub V-Beta-1.5")
+term.setTextColor(colors.yellow)
+print("WARNING: This is an alpha version, expect bugs and incomplete features.")
+term.setTextColor(colors.white)
+print("--------------------------")
+
+local DataSave = "NSOS-DataSave.txt"
+
+sleep(.5)
+
+if not fs.exists(DataSave) then
+    term.setTextColor(colors.red)
+    print("First time setup / DataSave corruption detected. Setting up DataSave...")
+    term.setTextColor(colors.white)
+    fs.open(DataSave, "w").close()
+end
+
+-- Update Checker
