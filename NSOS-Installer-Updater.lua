@@ -20,6 +20,7 @@ if fs.exists("NSOS-Version.txt") then
                 fs.delete("NSOS-Printer.lua")
                 shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-Printer.lua")
         end
+    end
 end
 -- NSOS Installer
 
