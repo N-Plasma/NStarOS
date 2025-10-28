@@ -1,6 +1,12 @@
 -- NSOS Updater
 
-local function UpdateNSOS()
+if fs.exists("NSOS-Version.txt") then
+    local Check = ""
+    local UpdateStatus = fs.open("NSOS-Version.txt", "r")
+        Check = UpdateStatus.readAll()
+        UpdateStatus.close()
+    if Check == "UPDATE" then
+        print("Update Code Detected, Re-Installing NSOS")
 
             if fs.exists("NSOS-IveGotGames.lua") then
                 fs.delete("NSOS-IveGotGames.lua")
@@ -8,30 +14,12 @@ local function UpdateNSOS()
         end
             if fs.exists("NSOS-REDNET.lua") then
                 fs.delete("NSOS-REDNET.lua")
-                    shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-REDNET.lua")
+                shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-REDNET.lua")
         end
             if fs.exists("NSOS-Printer.lua") then
                 fs.delete("NSOS-Printer.lua")
                 shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-Printer.lua")
         end
-
-    fs.delete("NSOS-Hub.lua")
-    fs.delete("NSOS-Version.txt")
-    shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-Hub.lua")
-    shell.run("wget https://raw.githubusercontent.com/N-Plasma/NStarOS/main/NSOS-Version.txt")
-    print("NSOS Updated, Restarting NSOS-Hub...")
-    shell.run("NSOS-Hub.lua")
-end
-
-if fs.exists("NSOS-Version.txt") then
-    local Check = ""
-    local UpdateStatus = fs.open("NSOS-Version.txt", "r")
-        Check = UpdateStatus.readAll()
-        UpdateStatus.close()
-    if Check == "UPDATE" then
-        print("Update Code Detected, Re-Installing NSOS (if data is affected there will be a warning when starting NSOS Again with a option to re-format so minimal data is lost)")
-        UpdateNSOS()
-    end
 end
 -- NSOS Installer
 
